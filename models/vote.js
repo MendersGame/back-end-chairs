@@ -10,7 +10,8 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      // define association here
+      Vote.belongsTo(models.Chair, { foreignKey: 'chairId' })
+      Vote.belongsTo(models.Profile, { foreignKey: 'voterId' })
     }
   }
   Vote.init({
@@ -41,7 +42,10 @@ module.exports = (sequelize, DataTypes) => {
         model: 'Profiles',
         key: 'id',
       },
-    },
+    }
+  }, {
+    sequelize,
+    modelName: 'Vote',
   });
   return Vote;
 };

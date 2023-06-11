@@ -14,12 +14,10 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       User.hasOne(models.Profile, { as: 'profile', foreignKey: 'userId' })
     }
-
     async comparePassword(tryPassword) {
       return await bcrypt.compare(tryPassword, this.dataValues.password)
     }
   }
-
   User.init({
     name: {
       type: DataTypes.STRING,
@@ -52,10 +50,8 @@ module.exports = (sequelize, DataTypes) => {
     sequelize,
     modelName: 'User',
   })
-
   User.beforeSave(async (user, options) => {
     if (!user.changed('password')) return
-
     try {
       const hash = await bcrypt.hash(user.dataValues.password, saltRounds)
       user.password = hash
@@ -63,6 +59,5 @@ module.exports = (sequelize, DataTypes) => {
       console.error(err)
     }
   })
-
   return User
 }
