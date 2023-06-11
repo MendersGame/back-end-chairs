@@ -10,29 +10,13 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       value: {
-        type: Sequelize.INTEGER,
-        validate: {
-          min: 0,
-          max: 5
-        }
+        type: Sequelize.INTEGER
       },
       profileId: {
-        type: Sequelize.INTEGER,
-        allowNull: false,
-        onDelete: 'CASCADE',
-        references: {
-          model: 'Profiles',
-          key: 'id',
-        }
+        type: Sequelize.INTEGER
       },
       voterId: {
-        type: Sequelize.INTEGER,
-        allowNull: false,
-        onDelete: 'CASCADE',
-        references: {
-          model: 'Profiles',
-          key: 'id',
-        }
+        type: Sequelize.INTEGER
       },
       createdAt: {
         allowNull: false,

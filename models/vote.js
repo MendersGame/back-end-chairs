@@ -3,7 +3,7 @@ const {
   Model
 } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
-  class Chair extends Model {
+  class Vote extends Model {
     /**
      * Helper method for defining associations.
      * This method is not a part of Sequelize lifecycle.
@@ -13,26 +13,35 @@ module.exports = (sequelize, DataTypes) => {
       // define association here
     }
   }
-  Chair.init({
-    name: {
-      type: DataTypes.STRING,
-      allowNull: false,
+  Vote.init({
+    // value: DataTypes.INTEGER,
+    value: {
+      type: DataTypes.INTEGER,
+      validate: {
+        min: 0,
+				max: 5,
+      },
     },
-    manufacturer: DataTypes.STRING,
-    photo: DataTypes.STRING,
-    userId: {
+    // chairId: DataTypes.INTEGER,
+    chairId: {
       type: DataTypes.INTEGER,
       allowNull: false,
       onDelete: 'CASCADE',
       references: {
-        model: 'Users',
+        model: 'Chair',
         key: 'id',
       },
     },
-  },
-  {
-    sequelize,
-    modelName: 'Chair',
-  })
-  return Chair
-}
+    // voterId: DataTypes.INTEGER,
+    voterId: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      onDelete: 'CASCADE',
+      references: {
+        model: 'Profiles',
+        key: 'id',
+      },
+    },
+  });
+  return Vote;
+};
