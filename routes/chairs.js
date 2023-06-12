@@ -11,5 +11,6 @@ const { decodeUserFromToken, checkAuth } = middleware
 router.use(decodeUserFromToken)
 router.get('/', checkAuth, chairCtrl.index)
 router.put('/:id/add-photo', checkAuth, chairCtrl.addPhoto)
+router.post('/', checkAuth, chairCtrl.createChair)
 
 module.exports = router

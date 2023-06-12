@@ -16,14 +16,13 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING,
       allowNull: false,
     },
-    manufacturer: DataTypes.STRING,
     photo: DataTypes.STRING,
-    userId: {
+    profileId: {
       type: DataTypes.INTEGER,
       allowNull: false,
       onDelete: 'CASCADE',
       references: {
-        model: 'Users',
+        model: 'Profiles',
         key: 'id',
       },
     },

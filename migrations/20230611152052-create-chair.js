@@ -12,9 +12,6 @@ module.exports = {
       name: {
         type: Sequelize.STRING
       },
-      manufacturer: {
-        type: Sequelize.STRING
-      },
       photo: {
         type: Sequelize.STRING
       },
