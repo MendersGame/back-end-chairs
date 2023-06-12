@@ -6,7 +6,7 @@ const { decodeUserFromToken, checkAuth } = middleware
 
 /*---------- Public Routes ----------*/
 
-router.get('/', checkAuth, chairCtrl.index)
+router.get('/', chairCtrl.index)
 
 /*---------- Protected Routes ----------*/
 router.use(decodeUserFromToken)
