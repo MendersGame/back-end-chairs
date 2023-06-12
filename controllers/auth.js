@@ -7,15 +7,12 @@ async function signup(req, res) {
     if (!process.env.CLOUDINARY_URL) {
       throw new Error('no CLOUDINARY_URL in back-end .env file')
     }
-
     const user = await User.findOne({ where: { email: req.body.email } })
     if (user) throw new Error('Account already exists')
-
     const newUser = await User.create(req.body)
     req.body.userId = newUser.id
     const newProfile = await Profile.create(req.body)
     newUser.dataValues.profile = { id: newProfile.dataValues.id }
-
     const token = createJWT(newUser)
     res.status(200).json({ token })
   } catch (err) {
@@ -37,16 +34,13 @@ async function login(req, res) {
     if (!process.env.CLOUDINARY_URL) {
       throw new Error('no CLOUDINARY_URL in back-end .env file')
     }
-
     const user = await User.findOne({
       where: { email: req.body.email },
       include: { model: Profile, as: 'profile', attributes: ['id'] },
     })
     if (!user) throw new Error('User not found')
-
     const isMatch = await user.comparePassword(req.body.password)
     if (!isMatch) throw new Error('Incorrect password')
-
     const token = createJWT(user)
     res.json({ token })
   } catch (err) {
@@ -58,13 +52,10 @@ async function changePassword(req, res) {
   try {
     const user = await User.findByPk(req.user.id)
     if (!user) throw new Error('User not found')
-
     const isMatch = user.comparePassword(req.body.curPassword)
     if (!isMatch) throw new Error('Incorrect password')
-
     user.password = req.body.newPassword
     await user.save()
-
     const token = createJWT(user)
     res.json({ token })
   } catch (err) {
