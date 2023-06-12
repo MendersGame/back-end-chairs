@@ -12,5 +12,7 @@ router.use(decodeUserFromToken)
 router.get('/', checkAuth, chairCtrl.index)
 router.put('/:id/add-photo', checkAuth, chairCtrl.addPhoto)
 router.post('/', checkAuth, chairCtrl.createChair)
+router.patch('/:chairId', checkAuth, chairCtrl.updateChair)
+router.delete('/:chairId', checkAuth, chairCtrl.deleteChair)
 
 module.exports = router

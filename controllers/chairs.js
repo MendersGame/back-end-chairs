@@ -39,4 +39,27 @@ async function createChair(req, res) {
   }
 }
 
-module.exports = { index, addPhoto, createChair }
+async function updateChair(req, res) {
+  try {
+    const updatedChair = await Chair.findByPk(req.params.chairId)
+    updatedChair.set(req.body)
+    await updatedChair.save()
+    res.status(200).json(updatedChair)
+  } catch (err) {
+    console.log(err)
+    res.status(500).json(err)
+  }
+}
+
+async function deleteChair(req, res) {
+  try {
+    const deletedChair = await Chair.findByPk(req.params.chairId)
+    await deletedChair.destroy()
+    res.status(200).json(deletedChair)
+  } catch (err) {
+    console.log(err)
+    res.status(500).json(err)
+  }
+}
+
+module.exports = { index, addPhoto, createChair, updateChair, deleteChair }

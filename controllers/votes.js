@@ -2,7 +2,7 @@ const { Vote, Chair } = require('../models')
 
 async function castVote(req, res) {
   try {
-    req.body.voterId = req.user.chair.id
+    req.body.voterId = req.user.profile.id
     const prevVote = await Vote.findOne({
       where: {
         voterId: req.body.voterId,
