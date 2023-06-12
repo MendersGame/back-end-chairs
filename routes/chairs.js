@@ -6,10 +6,10 @@ const { decodeUserFromToken, checkAuth } = middleware
 
 /*---------- Public Routes ----------*/
 
+router.get('/', checkAuth, chairCtrl.index)
 
 /*---------- Protected Routes ----------*/
 router.use(decodeUserFromToken)
-router.get('/', checkAuth, chairCtrl.index)
 router.put('/:id/add-photo', checkAuth, chairCtrl.addPhoto)
 router.post('/', checkAuth, chairCtrl.createChair)
 router.patch('/:chairId', checkAuth, chairCtrl.updateChair)
